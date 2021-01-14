@@ -1,0 +1,247 @@
+#include <iostream>
+#include<string>
+#include<string.h>
+#include <cstdlib>
+#define size 110
+using namespace std;
+
+int main() {
+    int i=1,i2=1,j2, j,s=0,ss=0;
+    int l,m,y,l2,m2,w,t;
+    int semino=0,semino2=0;
+    string g1,g2,g3,g4;
+	string a[size][size];
+	string b[size][size];
+	float res[size][size];//add,sub,multiply
+	string s1;// input string for first matrix
+	int rows2=0,columns2=0;
+	int rows1 = 0, columns1 = 0;
+	getline(cin >> ws, s1);
+	int length1 = s1.length();//length of the first in but matrix
+	int x=0,f=0,x2=0;
+
+	char op;
+	//cin in matrix a and cut the string to get values
+
+			while(1)
+	{
+	    	if(x==length1)
+		      break;
+		size_t	y = s1.find_first_of(";", x);      // y to find the place of the first semicolon(bybd2 mn 0)
+		s=y;
+			if (y > length1)
+			{
+			    y=length1-1;
+			    i=x;
+			    f=i;
+			    
+			}
+			semino++;
+		x = y;
+		rows1=semino;
+		int  r1 ;
+		int c1 = 0;
+		while(1)
+		{
+		    if(semino==1)
+			{columns1++;
+			r1=0;}
+		
+			l = s1.find_first_of(" ", f);           //l to find the place of the first space (bybd2 mn 0)
+		
+			
+			if (l < x&&l>0) {
+			    f = l+1;//el makan l hybd2 mno b3d kda
+				j = l - i;
+				a[r1][c1] = s1.substr(i, j);
+				c1++;
+			i = l + 1;
+			m=l;
+			}
+			else if(l > x||l<0)
+			{
+			    f=s+1;
+				i=m+1;
+					j = x-i;
+				a[r1][c1] = s1.substr(i, j);
+				i=f;
+					r1++;
+					x++;
+				break;
+			}
+		} }
+    
+
+	cin >> op;
+	if (op == '+' || op == '-' || op == '*') {
+	    
+	    	//cin in matrix b and cut the string to get values (this "if" for level 1)
+	string s2;
+	getline(cin>>ws , s2);
+	int length2=s2.length();
+	
+			while(1)
+	{
+	    	if(x2==length2)
+		      break;
+		size_t	y = s2.find_first_of(";", x2);        // y to find the place of the first semicolon(bybd2 mn 0)
+		ss=y;
+			if (y > length2)
+			{
+			    y=length2-1;
+			    i=x2;
+			    f=i2;
+			    
+			}
+			semino2++;
+		x2 = y;
+		rows2=semino2;
+		int  r1 ;
+		int c1 = 0;
+		while(1)
+		{
+		    if(semino2==1)
+			{columns2++;
+			r1=0;}
+		
+			l2 = s2.find_first_of(" ", f);            //l to find the place of the first space (bybd2 mn 0)
+		
+			
+			if (l2 < x2&&l2>0) {
+			    f = l2+1;//el makan l hybd2 mno b3d kda
+				j2 = l2 - i2;
+				b[r1][c1] = s2.substr(i2, j2);
+				c1++;
+			i2 = l2 + 1;
+			m2=l2;
+			}
+			else if(l2 > x2||l2<0)
+			{
+			    f=ss+1;
+				i2=m2+1;
+					j2 = x2-i2;
+				b[r1][c1] = s2.substr(i2, j2);
+				i2=f;
+					r1++;
+					x2++;
+				break;
+			}
+		} }
+    
+	
+	
+	switch (op) {
+	
+			case'+':
+		
+			
+				if (rows1 == rows2&&columns1 == columns2) {
+					for ( w = 0;w < rows1;w++)
+					{
+						for ( t = 0;t < columns1;t++)
+						{	 g1=a[w][t];
+                         	 g2=b[w][t];
+							res[w][t] = atof(g1.c_str()) + atof(g2.c_str());
+						}
+					}
+					cout << "[";
+	for (int i = 0;i < rows1;i++)
+	{
+		for (int j = 0;j < columns1;j++)
+		{
+			cout << res[i][j];
+			if (j == columns1 - 1) continue;
+				cout<<" ";
+		} 
+		if (i == rows1 - 1) continue;
+
+		cout << ";";
+	}
+	cout << "]";
+					break;
+				}
+				else
+				{
+					cout << "ERROR";
+					break;
+				}
+        
+				case'-':
+			
+					if (rows1 == rows2&&columns1 == columns2) {
+						for ( w = 0;w < rows1;w++)
+						{
+							for ( t = 0;t < columns1;t++)
+							{	g1=a[w][t];
+			                	g2=b[w][t];
+								res[w][t] = atof(g1.c_str()) - atof(g2.c_str());
+						}
+						}
+											cout << "[";
+	for (int i = 0;i < rows1;i++)
+	{
+		for (int j = 0;j < columns1;j++)
+		{
+			cout << res[i][j];
+			if (j == columns1 - 1) continue;
+				cout<<" ";
+		} 
+		if (i == rows1 - 1) continue;
+
+		cout << ";";
+	}
+	cout << "]";
+						
+						break;
+					}
+					else {
+						cout << "ERROR";
+						break;
+					}
+				
+	  	case'*':
+	                 	int y,u,k;
+
+						if (columns1 == rows2) {
+							for ( u = 0;u < rows1;u++)
+							{
+								for ( y = 0;y < columns2;y++)
+								{
+
+									for ( k = 0;k < columns1;k++)
+									{
+									     g3=a[u][k];
+				                    	 g4=b[k][y];
+										res[u][y] += atof(g3.c_str())*atof(g4.c_str());
+
+		
+									}
+								}
+							}
+							
+	cout << "[";
+	for (int i = 0;i < rows1;i++)
+	{
+		for (int j = 0;j < columns2;j++)
+		{
+			cout << res[i][j];
+			if (j == columns2 - 1) continue;
+				cout<<" ";
+		} 
+		if (i == rows1 - 1) continue;
+
+		cout << ";";
+	}
+	cout << "]";
+					break;
+						}
+						else {
+							cout << "ERROR";
+							break;
+						}
+		}
+	}
+	
+	
+							return 0;
+						}
