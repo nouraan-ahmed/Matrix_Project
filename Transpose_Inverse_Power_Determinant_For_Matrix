@@ -1,0 +1,377 @@
+#include <iostream>
+#include<string>
+#include<string.h>
+#include <cstdlib>
+#include <math.h>
+#include <cmath>
+#define size 110
+using namespace std;
+
+int main() {
+    int i=1,i2=1,j2, j,s=0,ss=0;
+    int l,m,l2,m2,w,t;
+    int semino=0,semino2=0,no;
+    string g1,g2,g3,g4,ze;
+	string a[size][size];
+	string trans[size][size];
+	float res[size][size];
+	float rest[size][size];
+	float detres[size][size];
+	string s1;// input string for first matrix
+	int rows2=0,columns2=0;
+	int rows1 = 0, columns1 = 0;
+	getline(cin >> ws, s1);
+	int length1 = s1.length();//length of the first in but matrix
+	int x=0,f=0,x2=0,flag=1;
+    int space=1;
+    double ue,p1,te,o1,p3,p4,re1,pr;
+	string p,o,o2,o3,re,r;
+	int z=1,d=1,counts=1,xe;
+    double product;
+	int flag2=0;
+	char op;
+	//cin in matrix a and cut the string to get values
+
+			while(1)
+	{
+	    	if(x==length1)
+		      break;
+		size_t	y = s1.find_first_of(";", x);// y to find the place of the first semicolon(bybd2 mn 0)
+		s=y;
+			if (y > length1)
+			{
+			    y=length1-1;
+			    i=x;
+			    f=i;
+			    
+			}
+			semino++;
+		x = y;
+		rows1=semino;
+		int  r1 ;
+		int c1 = 0;
+		
+		while(1)
+		{
+		    if(semino==1)
+			{columns1++;
+			r1=0;}
+		
+			l = s1.find_first_of(" ", f);//l to find the place of the first space (bybd2 mn 0)
+		
+			
+			if (l < x&&l>0) {
+			    f = l+1;//el makan l hybd2 mno b3d kda
+				j = l - i;
+				a[r1][c1] = s1.substr(i, j);
+				c1++;
+			i = l + 1;
+			m=l;
+			space++;
+			}
+			else if(l > x||l<0)
+			{
+			    f=s+1;
+				i=m+1;
+					j = x-i;
+				a[r1][c1] = s1.substr(i, j);
+				i=f;
+					r1++;
+					x++;
+				break;
+			}
+		
+		} 
+	    	if(space==columns1){
+	    	    flag2=1;
+	    	    space=1;
+	    	}
+			else {
+			    flag2=0;
+			    break;}
+	}
+    	int y,u,k,q;
+    	 int ee=3 ; 
+    cin >>op;
+    
+
+	if(op=='^'){
+	cin >> no;
+	if(no==0) res[i][j]=1;
+	if(no==1){
+			for ( u = 0;u< rows1;u++)
+							{
+							for ( y = 0;y < columns1;y++)
+								{
+                               ze= a[u][y];
+                            res[u][y]= atof(ze.c_str()) ;
+								}
+								}
+								}
+	                  res[u][y]=0;
+	                  rest[w][q]=0;
+	                  
+						if (columns1 == rows1) {
+						   while(1){
+							for ( u = 0;u < rows1;u++)
+							{
+								for ( y = 0;y < columns1;y++)
+								{
+                  
+									for ( k = 0;k < columns1;k++)
+									{
+									     g3=a[u][k];
+				                         g4=a[k][y];
+										res[u][y] += atof(g3.c_str())*atof(g4.c_str());
+                           
+									}  if(y >= columns1)break;
+								}if(u >= rows1) break;
+							}
+							
+							
+							    if(no>2){
+                                while(1){
+							for ( u = 0;u< rows1;u++)
+							{
+								for ( y = 0;y < columns1;y++)
+								{
+                  
+									for ( k = 0;k < columns1;k++)
+									{
+				                    	 g4=a[k][y];
+										rest[u][y] += res[u][k]*atof(g4.c_str());
+                                       
+									}
+								} 
+									if(u>=rows1) break;
+							}  
+								for ( u = 0;u< rows1;u++)
+							{
+								for ( y = 0;y < columns1;y++)
+								{
+                  
+                                   res[u][y]=rest[u][y]; 
+                                   rest[u][y]=0;
+								}
+							    
+							}
+                                
+							      
+							 ee++;
+							 	 if(ee>no)
+							 break;
+							  }
+							    }
+							  else
+							  break;
+                	 	 if(ee>no)
+						 break;
+                                }
+						 					cout<<"[";
+							for (int i = 0;i < rows1;i++){
+		for (int j = 0;j < columns1;j++){
+			cout << res[i][j];
+			if (j == columns1 - 1) continue;
+				cout<<" ";
+		} 
+		if (i == rows1 - 1) continue;
+
+		cout << ";";
+	}
+	cout << "]";
+						 
+						    }
+						    else
+						    cout<<"ERROR";
+						    
+	
+			}
+			else if(op=='T'){
+			    
+			    for(int qe=0;qe<columns1;qe++){
+			        for(int wa=0;wa<rows1;wa++){
+			           trans[qe][wa]=a[wa][qe];
+			        }
+			    }
+			   if(flag2==1){
+			   		cout<<"[";
+							for (int i = 0;i <columns1 ;i++){
+		for (int j = 0;j < rows1;j++){
+			cout << trans[i][j];
+			if (j == rows1 - 1) continue;
+				cout<<" ";
+		} 
+		if (i == columns1 - 1) continue;
+
+		cout << ";";
+	}
+	cout << "]";}
+	else cout<<"ERROR";
+			   
+			}
+			else if(op=='D'){
+			
+			     l=1,z=1,d=1,counts=1;
+			     
+			    if(columns1==rows1){
+			    for(int x=0;x<columns1-1;x++){
+			    while(1){
+			        if(x==0){
+			            j=0;
+			            p=a[l][x];
+			            p1=atof(p.c_str());
+			            o=a[x][x];
+			            o1=atof(o.c_str());
+			            ue=p1/o1;
+			                l++;
+			             
+			            for(int q=0;q<columns1;q++){
+			               
+			         o2=a[x][q];
+			        p3=atof(o2.c_str());
+			        te=(-1*ue)*p3;
+			        o3=a[z][j];
+			        p4=atof(o3.c_str());
+			        detres[z][j]=p4+te;
+			                 j++;
+			            }
+			            z++;
+			            counts++;
+			      
+			        if(counts==columns1){
+			            counts=1;
+			           break; }
+			        }
+			       
+			      else if (x>0){
+			    
+			            j=0;
+			           
+			            if(counts==1)
+			           { l=x;
+			           z=x+1;}
+			            l++;
+			           
+			            p1=detres[l][x];
+			            o1=detres[x][x];
+			            ue=p1/o1;
+		 
+			            for(int q=0;q<columns1;q++){
+			            p3=detres[x][q];
+			            te=(-1*ue)*p3;
+		
+			        p4=detres[z][j];
+			        detres[z][j]=p4+te;
+			        
+			                 j++;
+			            }
+			            counts++;
+			      z++;
+			      
+			          
+			             if(counts==columns1-x){
+			                 counts=1;
+			              break;
+			             }
+			                   
+			      }
+			        
+			      }
+			    }
+			    
+		      r=a[0][0];
+			  pr=atof(r.c_str());
+		      product=pr;
+			    for(int xe=1;xe<columns1;xe++){
+			       
+			        product*=detres[xe][xe];
+			    }
+			   	cout<<product;
+			}
+			
+			else cout<<"ERROR";
+			}
+			 else if(op=='I'){
+			     
+			    l=1,z=1,d=1,counts=1;
+                double i[size][size];
+                for(int oo=0;oo<columns1;oo++){
+                    for (int z=0;z<rows1;z++){
+                        if(oo==z)
+                    i[oo][z]=1;
+                    else if(oo!=z)
+                    i[z][oo]==0;
+                }
+                }
+               
+               
+                if(columns1==rows1){
+			    for(int x=0;x<columns1-1;x++){
+			    while(1){
+			        if(x==0){
+			            j=0;
+			            o=a[x][x];
+			            o1=atof(o.c_str());
+			         ue=1/o1;
+			            for(int q=0;q<columns1;q++){
+			                  o2=a[x][q];
+			                  p3=atof(o2.c_str());
+			                  detres[x][q]=p3*ue;
+			                  i[x][q]=i[x][q]*ue;
+			                  o3=a[z][j];
+			                  p4=atof(o3.c_str());
+			                  p3=detres[x][q];
+			                  t=(-1*p4)*p3;
+			                  i[z][j]=(-1*p4)*i[z][j];
+			                   detres[z][j]=p4+t;
+			                   i[z][j]=i[z][j]+(-1*p4)*i[x][q];
+			                 j++;
+			            }
+			            z++;
+			            counts++;
+			      
+			        if(counts==columns1){
+			            counts=1;
+			           break; }
+			        }
+			       
+			      else if (x>0){
+			    
+			            j=0;
+			           
+			            if(counts==1)
+			           { l=x;
+			           z=x+1;}
+			            l++;
+			           
+			            p1=detres[l][x];
+			            o1=detres[x][x];
+			            ue=p1/o1;
+		 
+			            for(int q=0;q<columns1;q++){
+			        
+			             
+			            p3=detres[x][q];
+			            te=(-1*ue)*p3;
+			            p4=detres[z][j];
+			            detres[z][j]=p4+te;
+			        
+			                 j++;
+			            }
+			            counts++;
+			      z++;
+			      
+			          
+			             if(counts==columns1-x){
+			                 counts=1;
+			              break;
+			             }
+			 }
+			    }
+			    }
+                }
+			 }
+	    return 0;
+			}
+	  
+	
